@@ -22,12 +22,12 @@ jobs:
       - name: Checkout project
         uses: actions/checkout@v2
 
-      - id: keydb
-        uses: oz-elhassid/get-latest-release@master
-        with:
-          repository: Stability-AI/StableStudio
-          excludes: prerelease, draft
-          and_filters: "prerelease: false"
+    #   - id: keydb
+    #     uses: oz-elhassid/get-latest-release@master
+    #     with:
+    #       repository: Stability-AI/StableStudio
+    #       excludes: prerelease, draft
+    #       and_filters: "prerelease: false"
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
