@@ -8,6 +8,8 @@ WORKDIR /app
 
 RUN git clone --depth 1 --branch ${GIT_TAG} https://github.com/Stability-AI/StableStudio.git .
 
+RUN yarn config set enableTelemetry 0
+
 RUN yarn
 
 RUN yarn workspace @stability/stablestudio-ui run build:production
