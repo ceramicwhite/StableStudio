@@ -1,0 +1,30 @@
+ARG GIT_TAG=${GIT_TAG:-main}
+
+FROM node:18 AS build
+
+ARG GIT_TAG
+
+WORKDIR /app
+
+RUN git clone --depth 1 --branch ${GIT_TAG} https://github.com/Stability-AI/StableStudio.git .
+
+RUN yarn
+
+RUN yarn workspace @stability/stablestudio-ui run build:production
+
+FROM node:18-alpine AS app
+
+ENV NODE_ENV=production \
+    HOME=/app
+
+RUN npm install -g serve
+
+COPY --from=build --chown=1000:1000 /app/packages/stablestudio-ui/dist /app
+
+USER 1000
+
+WORKDIR /app
+
+EXPOSE 3000
+
+CMD ["serve"]
